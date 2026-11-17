@@ -107,9 +107,25 @@ public class BasicGameApp implements Runnable {
 		astro.move();
 		astro2.move();
 		astro3.move();
+		crashing();
 
 	}
-	
+	//todo: make a method called crashing
+	public void crashing() {
+		if (astro.hitbox.intersects(astro2.hitbox)&& astro.isCrashing == false) { //are astro touching
+			System.out.println("crash");
+			//bounce
+			astro.dy = astro.dy + 4;
+			//make 1 die
+			//follow eachother
+			//make them bigger
+			astro.height = astro.height + 50;
+			astro.isCrashing = true;
+		}
+		if (!astro.hitbox.intersects(astro2.hitbox)) { //are astro not touching
+			astro.isCrashing = false;
+		}
+	}//end of crashing method
    //Pauses or sleeps the computer for the amount specified in milliseconds
    public void pause(int time ){
    		//sleep
@@ -161,6 +177,11 @@ public class BasicGameApp implements Runnable {
 		g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
 		g.drawImage(astroPic, astro2.xpos, astro2.ypos, astro2.width, astro2.height, null);
 		g.drawImage(astroPic, astro3.xpos, astro3.ypos,astro3.width, astro3.height, null);
+		g.drawRect(astro.hitbox.x, astro.hitbox.y, astro.hitbox.width, astro.hitbox.height);
+		g.drawRect(astro2.hitbox.x, astro2.hitbox.y, astro2.hitbox.width, astro2.hitbox.height);
+		g.drawRect(astro3.hitbox.x, astro3.hitbox.y, astro3.hitbox.width, astro3.hitbox.height);
+
+
 
 
 //end coding here
