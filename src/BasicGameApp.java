@@ -39,6 +39,7 @@ public class BasicGameApp implements Runnable {
    
 	public BufferStrategy bufferStrategy;
 	public Image astroPic;
+	public Image spacePic;
 
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
@@ -68,6 +69,8 @@ public class BasicGameApp implements Runnable {
       //variable and objects
       //create (construct) the objects needed for the game and load up 
 		astroPic = Toolkit.getDefaultToolkit().getImage("astronaut.png"); //load the picture
+		spacePic = Toolkit.getDefaultToolkit().getImage("space.jpeg"); //load the picture
+
 		astro = new Astronaut(10,100);
 		astro2 = new Astronaut(20, 50);
 		astro2.dx = 5;
@@ -112,16 +115,17 @@ public class BasicGameApp implements Runnable {
 	}
 	//todo: make a method called crashing
 	public void crashing() {
-		if (astro.hitbox.intersects(astro2.hitbox)&& astro.isCrashing == false) { //are astro touching
+		if (astro.hitbox.intersects(astro2.hitbox)&& astro.isCrashing == false && astro2.isAlive == true) { //are astro touching
 			System.out.println("crash");
 			//bounce
-			astro.dy = astro.dy + 4;
-			if (!astro.hitbox.intersects(astro2.hitbox)) {
-				astro2.dx = -(astro2.dx);
+				astro2.dx = -astro2.dx;
 				astro.dx = -(astro.dx);
+				astro2.dy = -astro2.dy;
+				astro.dy = -astro.dy;
 
-			}
+
 			//make 1 die
+			astro2.isAlive = false;
 			//follow eachother
 			//make them bigger
 			astro.height = astro.height + 50;
@@ -180,11 +184,14 @@ public class BasicGameApp implements Runnable {
 		//Start coding from hwre
 
       //draw the image of the astronaut
+		g.drawImage(spacePic, 0, 0, WIDTH, HEIGHT, null);
 		g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
 		g.drawImage(astroPic, astro2.xpos, astro2.ypos, astro2.width, astro2.height, null);
 		g.drawImage(astroPic, astro3.xpos, astro3.ypos,astro3.width, astro3.height, null);
 		g.drawRect(astro.hitbox.x, astro.hitbox.y, astro.hitbox.width, astro.hitbox.height);
-		g.drawRect(astro2.hitbox.x, astro2.hitbox.y, astro2.hitbox.width, astro2.hitbox.height);
+		if (astro2.isAlive = true) {
+			g.drawRect(astro2.hitbox.x, astro2.hitbox.y, astro2.hitbox.width, astro2.hitbox.height);
+		}
 		g.drawRect(astro3.hitbox.x, astro3.hitbox.y, astro3.hitbox.width, astro3.hitbox.height);
 
 
