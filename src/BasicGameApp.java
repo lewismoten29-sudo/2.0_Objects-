@@ -116,6 +116,11 @@ public class BasicGameApp implements Runnable {
 			System.out.println("crash");
 			//bounce
 			astro.dy = astro.dy + 4;
+			if (!astro.hitbox.intersects(astro2.hitbox)) {
+				astro2.dx = -(astro2.dx);
+				astro.dx = -(astro.dx);
+
+			}
 			//make 1 die
 			//follow eachother
 			//make them bigger
@@ -126,6 +131,7 @@ public class BasicGameApp implements Runnable {
 			astro.isCrashing = false;
 		}
 	}//end of crashing method
+
    //Pauses or sleeps the computer for the amount specified in milliseconds
    public void pause(int time ){
    		//sleep
